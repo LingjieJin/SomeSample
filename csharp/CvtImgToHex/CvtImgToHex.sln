@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CvtImgToHex", "CvtImgToHex.csproj", "{ED290696-B58A-4C2B-89BC-67836E6A423C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED290696-B58A-4C2B-89BC-67836E6A423C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED290696-B58A-4C2B-89BC-67836E6A423C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED290696-B58A-4C2B-89BC-67836E6A423C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED290696-B58A-4C2B-89BC-67836E6A423C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ECB65C69-AD43-4C64-BFD5-3632F7BD7661}
+	EndGlobalSection
+EndGlobal
