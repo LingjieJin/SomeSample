@@ -1,4 +1,5 @@
-#include "PolygonAlgorithm.hpp"
+#include "IPolygonAlgorithmBase.hpp"
+#include "Polygon.hpp"
 
 /**
  * 针对不考虑点在边缘的情况下做判断

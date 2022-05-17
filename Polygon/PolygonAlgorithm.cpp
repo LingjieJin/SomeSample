@@ -2,21 +2,27 @@
 #define POLYGON_ALGORITHM_HPP
 
 #include "Polygon.hpp"
-#include "../Log/Debug.h"
 #include <iostream>
-
 #include <stdlib.h>
 #include <cmath>
+
+#define DPRINTF(fmt,...) (\
+                            fprintf(stdout,"-D- File:<%s>, Function:[%s], Line:%05d ",__FILE__,__FUNCTION__,__LINE__),\
+                            fprintf(stdout, fmt, ##__VA_ARGS__),\
+                            fprintf(stdout, "\n")\
+                            )
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
-template <class T>
-class IPolygonAlgorithmBase
+#include "IPolygonAlgorithmBase.hpp"
+
+template<class T>
+class PolygonAlgorithmBase : public IPolygonAlgorithmBase
 {
 public:
-    IPolygonAlgorithmBase<T>() {}
-    virtual ~IPolygonAlgorithmBase() {}
+    PolygonAlgorithmBase(/* args */);
+    ~PolygonAlgorithmBase();
 
     /* 获取两点之间的距离 */
     T getDistance(const CPoint<T> &p1,const CPoint<T> &p2);
@@ -89,14 +95,15 @@ public:
     virtual double calPolygonArea(std::vector<CPoint<T>> &polygon);
 };
 
+
 template<class T>
-T IPolygonAlgorithmBase<T>::getDistance(const CPoint<T> &p1,const CPoint<T> &p2)
+T PolygonAlgorithmBase<T>::getDistance(const CPoint<T> &p1,const CPoint<T> &p2)
 {
     return sqrt((p1._x-p2._x)*(p1._x-p2._x) + (p1._y - p2._y) * (p1._y - p2._y));
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isPointOnLine(T p0_x, T p0_y, T p1_x, T p1_y, T p2_x, T p2_y)
+bool PolygonAlgorithmBase<T>::isPointOnLine(T p0_x, T p0_y, T p1_x, T p1_y, T p2_x, T p2_y)
 {
     double d1 = (p1_x - p0_x) * (p2_y - p0_y) - (p2_x - p0_x) * (p1_y - p0_y);
     if ((abs(d1) < 0.000001) && ((p0_x - p1_x) * (p0_x - p2_x) <= 0) && ((p0_y - p1_y) * (p0_y - p2_y) <= 0))
@@ -107,19 +114,19 @@ bool IPolygonAlgorithmBase<T>::isPointOnLine(T p0_x, T p0_y, T p1_x, T p1_y, T p
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isPointOnLine(T p0_x, T p0_y, CLine<T> &line)
+bool PolygonAlgorithmBase<T>::isPointOnLine(T p0_x, T p0_y, CLine<T> &line)
 {
     return isPointOnLine(p0_x, p0_y, line._p1._x, line._p1._y, line._p2._x, line._p2._y);
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isPointOnLine(CPoint<T> &point, CLine<T> &line)
+bool PolygonAlgorithmBase<T>::isPointOnLine(CPoint<T> &point, CLine<T> &line)
 {
     return isPointOnLine(point._x, point._y, line._p1._x, line._p1._y, line._p2._x, line._p2._y);
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isPointInRect(const T &x, const T &y, const CRect<T> &rect)
+bool PolygonAlgorithmBase<T>::isPointInRect(const T &x, const T &y, const CRect<T> &rect)
 {
     if (x >= rect.p_min._x && x <= rect.p_max._x && y >= rect.p_min._y && y <= rect.p_max._y)
         return true;
@@ -127,13 +134,13 @@ bool IPolygonAlgorithmBase<T>::isPointInRect(const T &x, const T &y, const CRect
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isPointInRect(const CPoint<T> &point, const CRect<T> &rect)
+bool PolygonAlgorithmBase<T>::isPointInRect(const CPoint<T> &point, const CRect<T> &rect)
 {
     return isPointInRect(point._x, point._y, rect);
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isPointInPolygon(const T &x, const T &y, const CPolygon<T> &polygon)
+bool PolygonAlgorithmBase<T>::isPointInPolygon(const T &x, const T &y, const CPolygon<T> &polygon)
 {
     bool isInside = false;
     int count = 0;
@@ -209,13 +216,13 @@ bool IPolygonAlgorithmBase<T>::isPointInPolygon(const T &x, const T &y, const CP
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isPointInPolygon(const CPoint<T> &point, const CPolygon<T> &polygon)
+bool PolygonAlgorithmBase<T>::isPointInPolygon(const CPoint<T> &point, const CPolygon<T> &polygon)
 {
     return isPointInPolygon(point._x, point._y, polygon);
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isLineIntersect(T x1, T y1,
+bool PolygonAlgorithmBase<T>::isLineIntersect(T x1, T y1,
                                                T x2, T y2,
                                                T x3, T y3,
                                                T x4, T y4)
@@ -249,7 +256,7 @@ bool IPolygonAlgorithmBase<T>::isLineIntersect(T x1, T y1,
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isLineIntersect(const CPoint<T> &p1,
+bool PolygonAlgorithmBase<T>::isLineIntersect(const CPoint<T> &p1,
                                                const CPoint<T> &p2,
                                                const CPoint<T> &p3,
                                                const CPoint<T> &p4)
@@ -261,13 +268,13 @@ bool IPolygonAlgorithmBase<T>::isLineIntersect(const CPoint<T> &p1,
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isLineIntersect(const CLine<T> &l1, const CLine<T> &l2)
+bool PolygonAlgorithmBase<T>::isLineIntersect(const CLine<T> &l1, const CLine<T> &l2)
 {
     return isLineIntersect(l1._p1, l1._p2, l2._p1, l2._p2);
 }
 
 template <class T>
-void IPolygonAlgorithmBase<T>::GetCrossPoint(const CPoint<T> &p1,
+void PolygonAlgorithmBase<T>::GetCrossPoint(const CPoint<T> &p1,
                                              const CPoint<T> &p2,
                                              const CPoint<T> &q1,
                                              const CPoint<T> &q2,
@@ -291,7 +298,7 @@ void IPolygonAlgorithmBase<T>::GetCrossPoint(const CPoint<T> &p1,
 }
 
 template <class T>
-void IPolygonAlgorithmBase<T>::GetCrossPoint(const CPoint<T> &p1,
+void PolygonAlgorithmBase<T>::GetCrossPoint(const CPoint<T> &p1,
                                              const CPoint<T> &p2,
                                              const CPoint<T> &q1,
                                              const CPoint<T> &q2,
@@ -301,7 +308,7 @@ void IPolygonAlgorithmBase<T>::GetCrossPoint(const CPoint<T> &p1,
 }
 
 template <class T>
-void IPolygonAlgorithmBase<T>::GetCrossPoint(const CLine<T> &l1,
+void PolygonAlgorithmBase<T>::GetCrossPoint(const CLine<T> &l1,
                                              const CLine<T> &l2,
                                              CPoint<T> &point)
 {
@@ -309,7 +316,7 @@ void IPolygonAlgorithmBase<T>::GetCrossPoint(const CLine<T> &l1,
 }
 
 template <class T>
-bool IPolygonAlgorithmBase<T>::isPolygonsIntersect(const CPolygon<T> &p1, const CPolygon<T> &p2)
+bool PolygonAlgorithmBase<T>::isPolygonsIntersect(const CPolygon<T> &p1, const CPolygon<T> &p2)
 {
     int i, j;
     // 1. point judge
@@ -341,7 +348,7 @@ bool IPolygonAlgorithmBase<T>::isPolygonsIntersect(const CPolygon<T> &p1, const 
 }
 
 template <class T>
-CRect<T> IPolygonAlgorithmBase<T>::getPolygonEnvelopRect(const CPolygon<T> &p)
+CRect<T> PolygonAlgorithmBase<T>::getPolygonEnvelopRect(const CPolygon<T> &p)
 {
     T minx = p._vecPoints[0]._x;
     T maxx = p._vecPoints[0]._x;
@@ -363,7 +370,7 @@ CRect<T> IPolygonAlgorithmBase<T>::getPolygonEnvelopRect(const CPolygon<T> &p)
 }
 
 template <class T>
-void IPolygonAlgorithmBase<T>::spiltPolygon(const CLongLine<T> &line,
+void PolygonAlgorithmBase<T>::spiltPolygon(const CLongLine<T> &line,
                                             const CPolygon<T> &polygon,
                                             std::vector<CPoint<T>> &result_1,
                                             std::vector<CPoint<T>> &result_2)
@@ -450,7 +457,7 @@ void IPolygonAlgorithmBase<T>::spiltPolygon(const CLongLine<T> &line,
 }
 
 template <class T>
-double IPolygonAlgorithmBase<T>::calPolygonArea(std::vector<CPoint<T>> &polygon)
+double PolygonAlgorithmBase<T>::calPolygonArea(std::vector<CPoint<T>> &polygon)
 {
     double area = 0.0;
 

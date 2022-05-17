@@ -1,12 +1,10 @@
-//
-//  SystemClock.cpp
-//  SystemTime
-//
-//  Created by kIng_martin on 2019/8/1.
-//  Copyright © 2019 Jin Lingjie. All rights reserved.
-//
+#include <stdio.h>
+#include <time.h>
 
-#include "SystemClock.hpp"
+// sys/time.h 是Linux系统的日期头文件
+// sys/time.h 通常会包含include "time.h"
+// gettimeofday 函数在sys/time.h 内
+#include <sys/time.h>
 
 //
 // 获取系统时间 精确到纳秒
