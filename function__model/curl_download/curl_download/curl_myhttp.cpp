@@ -1,11 +1,3 @@
-//
-//  curl_myhttp.cpp
-//  mqtt_test
-//
-//  Created by kIng_martin on 2019/6/23.
-//  Copyright © 2019 kIng_martin. All rights reserved.
-//
-
 #include "curl_myhttp.hpp"
 
 size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)

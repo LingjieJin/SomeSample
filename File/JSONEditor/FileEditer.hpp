@@ -1,8 +1,3 @@
-#ifndef FILEEDITER_HPP
-#define FILEEDITER_HPP
-
-#include <stdint.h>
-
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -17,8 +12,6 @@ using std::stringstream;
 using std::ostringstream;
 
 
-
-
 class TStringHelper
 {
 public:
@@ -27,8 +20,6 @@ public:
 
     static string& catString(string& str_1, string& str_2);
 };
-
-
 
 
 class TFileEditer
@@ -50,8 +41,6 @@ public:
 
 };
 
-
-
 #include "cJSON.h"
 
 class JSONFileEditer : public TFileEditer
@@ -67,6 +56,3 @@ public:
     static string getJSONStringItem(cJSON* root, string search);
 
 };
-
-
-#endif

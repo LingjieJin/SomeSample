@@ -1,11 +1,3 @@
-//
-//  curl_myhttp.hpp
-//  mqtt_test
-//
-//  Created by kIng_martin on 2019/6/23.
-//  Copyright © 2019 kIng_martin. All rights reserved.
-//
-
 #ifndef curl_myhttp_hpp
 #define curl_myhttp_hpp
 
